@@ -11,7 +11,9 @@ import { ReactComponent as NotificationIcon } from '../../../assets/images/notif
 // TODO: use profile picture stored in db
 import { ReactComponent as ProfilePicture } from '../../../assets/images/navbar/defaultpfp.svg';
 import { ReactComponent as IconLogo } from '../../../assets/images/navbar/nav-logo.svg';
-import { ReactComponent as WordsLogo } from '../../../assets/images/middle_logo.svg';
+// import { ReactComponent as IconLogo } from '../../../assets/images/navbar/sternprodukt.svg';
+// import { ReactComponent as WordsLogo } from '../../../assets/images/middle_logo.svg';
+import image from '../../../assets/images/hquer.png';
 import { BiMenu } from 'react-icons/bi';
 import {
   AppBar,
@@ -261,7 +263,12 @@ const TopMenu = ({
       );
     }
 
-    return <WordsLogo alt="LiteFarm Logo" className={styles.paddingTopBottom} />;
+    return (
+      <>
+        <img src={image} className={styles.logoImg} />
+        <span>Maßnahmenplaner</span>
+      </>
+    );
   };
 
   return (

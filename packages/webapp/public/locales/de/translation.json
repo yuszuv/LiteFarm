@@ -1598,8 +1598,8 @@
     "CLEAR_ALL": "Alle entfernen"
   },
   "RELEASE": {
-    "BETTER": "LiteFarm wurde gerade noch besser!",
-    "LITEFARM_UPDATED": "LiteFarm v{{version}} ist jetzt verfügbar!",
+    "BETTER": "Der Maßnahmenplaner wurde gerade noch besser!",
+    "LITEFARM_UPDATED": "Maßnahmenplaner v{{version}} ist jetzt verfügbar!",
     "NOTES": "Hinweise zur Veröffentlichung"
   },
   "REMOVE_ANIMALS": {

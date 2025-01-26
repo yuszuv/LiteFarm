@@ -14,7 +14,8 @@ import React, { forwardRef, useEffect, useLayoutEffect, useRef, useState } from 
 import { matchPath } from 'react-router-dom';
 
 import useExpandable from '../../Expandable/useExpandableItem';
-import { ReactComponent as Logo } from '../../../assets/images/middle_logo.svg';
+// import { ReactComponent as Logo } from '../../../assets/images/middle_logo.svg';
+import image from '../../../assets/images/hquer.png';
 import { useGetMenuItems } from '../../../hooks/useGetMenuItems';
 import Drawer, { DesktopDrawerVariants } from '../../Drawer';
 import { ReactComponent as CollapseMenuIcon } from '../../../assets/images/nav/collapse-menu.svg';
@@ -94,8 +95,15 @@ const SideMenuContent = ({ history, closeDrawer, isCompact, hasBeenExpanded }) =
           onClick={() => handleClick('/')}
           className={clsx(styles.listItem, styles.logoListItem)}
         >
-          <div className={clsx(styles.animatedLogo, isCompact && styles.compactLogo)}>
-            <Logo alt={'logo'} />
+          <div
+            className={clsx(
+              styles.logoContainer,
+              styles.animatedLogo,
+              isCompact && styles.compactLogo,
+            )}
+          >
+            <img src={image} alt="logo" className={styles.logoImg} />
+            <span>Maßnahmenplaner</span>
           </div>
         </ListItemButton>
         {mainActions.map(({ icon, label, path, subMenu, key, badge }) => {

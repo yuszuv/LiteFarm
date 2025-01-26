@@ -176,7 +176,6 @@
   }
 }
 
-
 .sideMenu {
   .drawerContainer {
     background-color: var(--teal700);
@@ -201,7 +200,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-right: 1px solid #D1E9D9;
+  border-right: 1px solid #d1e9d9;
   padding: 0;
   height: 100%;
   flex: 0 0 var(--global-side-menu-width);
@@ -247,10 +246,11 @@
     overflow: visible;
   }
 
-  &.compactContainer, &.expandedContainer {
+  &.compactContainer,
+  &.expandedContainer {
     .animatedContent {
       transition: opacity 0.5s;
-    
+
       &.hiddenContent {
         opacity: 0;
         flex: 0;
@@ -259,18 +259,23 @@
         margin: 0;
       }
     }
-    
+
     .animatedLogo {
       overflow: hidden;
       height: 64px;
       transition: height 0.5s;
-    
+
       &.compactLogo {
+        display: initial;
         height: 36px;
-    
+
         svg {
           transform: translateX(-24px);
         }
+      }
+
+      span {
+        font-weight: semi-bold;
       }
     }
   }
@@ -282,7 +287,7 @@
 
 .listItem {
   padding: 16px;
-  border-top: 1px solid #E9EBF8;
+  border-top: 1px solid #e9ebf8;
   display: flex;
   justify-content: flex-start;
 
@@ -315,7 +320,7 @@
 }
 
 .activeListItem {
-  background-color: #A2D2CD;
+  background-color: #a2d2cd;
 
   &.subItem:not(:hover) {
     background-color: var(--secondaryGreen50);
@@ -334,11 +339,11 @@
     }
 
     &.adminActionListItem {
-      background-color: #A2D2CD;
+      background-color: #a2d2cd;
     }
 
     &:hover {
-      background-color: #A2D2CD;
+      background-color: #a2d2cd;
 
       .listItemText {
         color: var(--teal700);
@@ -381,7 +386,6 @@
       background-color: white;
     }
 
-
     &:hover:not(.subItem) {
       background-color: var(--teal700);
 
@@ -422,7 +426,6 @@
 
 .icon {
   min-width: 0px;
-
 }
 
 .expandCollapseIcon {
@@ -462,7 +465,7 @@
 }
 
 .menuToggle {
-  border: 1px solid #D1E9D9;
+  border: 1px solid #d1e9d9;
   padding: 4px;
   position: fixed;
   top: calc(var(--global-navbar-height) / 2 - 12px);
@@ -470,7 +473,9 @@
   background-color: white;
   z-index: 1300;
   transition: transform 0.5s;
-  animation: toggle-initial 0.9s forwards, toggle-color-initial 2s;
+  animation:
+    toggle-initial 0.9s forwards,
+    toggle-color-initial 2s;
 
   svg {
     height: 16px;
@@ -479,7 +484,7 @@
 
   &:hover {
     background-color: var(--green500);
-    
+
     svg {
       path {
         stroke: var(--green800);
@@ -500,4 +505,18 @@
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
   }
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logoContainer span {
+  font-weight: bold;
+}
+
+.logoImg {
+  width: 100px;
 }

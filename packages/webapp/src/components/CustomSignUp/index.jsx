@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
-import { ReactComponent as Logo } from '../../assets/images/signUp/logo.svg';
+// import { ReactComponent as Logo } from '../../assets/images/signUp/hquer.svg';
+import image from '../../assets/images/signUp/hquer.png';
 import { ReactComponent as LineBreak } from '../../assets/images/signUp/lineBreak.svg';
 import Button from '../Form/Button';
 import Input from '../Form/Input';
@@ -32,11 +33,12 @@ export default function PureCustomSignUp({
     <form onSubmit={onSubmit} className={styles.home} style={classes.form}>
       <div className={styles.lander}>
         <div className={styles.greetContainer}>
-          <Logo />
+          <img src={image} />
+          <div className={styles.title}>Maßnahmenplaner</div>
           <NewReleaseCard style={{ marginTop: '32px', maxWidth: '312px' }} />
           {(!isChrome || !!errorMessage) && (
             <div className={styles.otherBrowserMessageTop}>
-              {!!errorMessage ? (
+              {errorMessage ? (
                 <Error style={{ maxWidth: '300px' }}>{errorMessage}</Error>
               ) : (
                 <>
