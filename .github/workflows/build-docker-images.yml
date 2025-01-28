@@ -18,11 +18,11 @@ jobs:
         ports:
           - 5433:5432
         env:
-          POSTGRES_PASSWORD: { { secrets.POSTGRES_PASSWORD } }
-          POSTGRES_USER: { { env.POSTGRES_USER } }
-          POSTGRES_DB: { { env.POSTGRES_DB } }
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         options: >-
-          --health-cmd "pg_isready -U {{env.POSTGRES_USER}}"
+          --health-cmd "pg_isready -U ${{vars.POSTGRES_USER}}"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 5
@@ -44,6 +44,17 @@ jobs:
 
       # Build the backend image
       - name: Build Backend Image
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+          ENV VITE_ENV: production
+          ENV NODE_ENV: production
+          ENV VITE_API_URL: http://planer-api.klimahanf.de
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_INVITE_SECRET: ${{ secrets.JWT_INVITE_SECRET }}
+          JWT_RESET_SECRET: ${{ secrets.JWT_RESET_SECRET }}
+          JWT_FARM_SECRET: ${{ secrets.JWT_FARM_SECRET }}
+          JWT_SCHEDULER_SECRET: ${{ secrets.JWT_SCHEDULER_SECRET }}
+          GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
         run: |
           docker build \
             -t litefarm-backend \
@@ -52,6 +63,8 @@ jobs:
 
       # Build the frontend image
       - name: Build Frontend Image
+        env:
+          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
         run: |
           docker build \
             -t litefarm-frontend \
