@@ -4,6 +4,10 @@ volumes:
   postgres-data:
     driver: local
 
+networks:
+  litefarm_net:
+    driver: bridge
+
 services:
   db:
     container_name: litefarm-db
@@ -15,14 +19,17 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
     volumes:
       - ~/docker/volumes/postgres:/var/lib/postgresql/data
+    networks:
+      - litefarm_net
   backend:
     container_name: litefarm-api
+    image: litefarm-backend
     deploy:
       restart_policy:
         condition: on-failure
@@ -34,17 +41,19 @@ services:
       - /etc/letsencrypt:/usr/src/letsencrypt
     ports:
       - "5000:5000"
+    networks:
+      - litefarm_net
     environment:
       WAIT_HOSTS: litefarm-db:5432
       NODE_ENV: production
       DATABASE_URL: ${DATABASE_URL}
   frontend:
     container_name: litefarm-web
+    image: litefarm-frontend
     build:
       context: ./packages/
       dockerfile: ./webapp/prod.Dockerfile
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt
+    networks:
+      - litefarm_net
     ports:
       - "80:80"
-      - "443:443"
