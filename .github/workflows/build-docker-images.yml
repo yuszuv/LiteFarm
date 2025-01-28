@@ -18,11 +18,11 @@ jobs:
         ports:
           - 5433:5432
         env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: { { secrets.POSTGRES_PASSWORD } }
+          POSTGRES_USER: { { env.POSTGRES_USER } }
+          POSTGRES_DB: { { env.POSTGRES_DB } }
         options: >-
-          --health-cmd "pg_isready -U postgres"
+          --health-cmd "pg_isready -U {{env.POSTGRES_USER}}"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 5
@@ -33,11 +33,10 @@ jobs:
         uses: actions/checkout@v3
 
       # Log in to Docker Hub (optional, if pushing images)
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      - uses: actions/checkout@v3
+      - name: Login to ghcr.io
+        run: |
+          echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       # Set up Docker Buildx for multi-platform builds (optional)
       - name: Set up Docker Buildx
@@ -62,10 +61,10 @@ jobs:
       # (Optional) Push images to Docker Hub
       - name: Push Backend Image to Docker Hub
         run: |
-          docker tag litefarm-backend yourdockerhubusername/litefarm-backend:latest
-          docker push yourdockerhubusername/litefarm-backend:latest
+          docker tag litefarm-backend ghcr.io/yuszuv/litefarm-backend:latest
+          docker push ghcr.io/yuszuv/litefarm-backend:latest
 
       - name: Push Frontend Image to Docker Hub
         run: |
-          docker tag litefarm-frontend yourdockerhubusername/litefarm-frontend:latest
-          docker push yourdockerhubusername/litefarm-frontend:latest
+          docker tag litefarm-frontend ghcr.io/yuszuv/litefarm-frontend:latest
+          docker push ghcr.io/yuszuv/litefarm-frontend:latest
